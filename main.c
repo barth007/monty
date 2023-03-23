@@ -22,14 +22,9 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	buffer = malloc(BUFFER_SIZE);
-	if (!buffer)
+	while (fgets(buffer, BUFFER_SIZE, input))
 	{
-		fprintf(stderr, "Error: Failed to allocate memory for buffer\n");
-		exit(EXIT_FAILURE);
-	}
-	while (fread(buffer, sizeof(BUFFER_SIZE), BUFFER_SIZE,  input))
-	{
-		printf("%s\n", buffer);
+		parseline(buffer);
 	}
 	free(buffer);
 	fclose(input);
