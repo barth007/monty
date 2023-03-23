@@ -32,5 +32,9 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+typedef void (*instruction_op)(stack_t **stack, unsigned int line_number);
 char *parseline(char *line);
+void op_push(stack_t **, unsigned int);
+void op_pall(stack_t **, unsigned int);
+instruction_op get_op_func(char *);
 #endif

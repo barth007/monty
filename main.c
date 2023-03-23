@@ -9,22 +9,46 @@ int main(int argc, char *argv[])
 {
 	FILE *input;
 	char *buffer;
+	char *line;
+	unsigned int line_number;
+	instruction_op call_func;
 
 	if (argc != 2)
 	{
-		printf("USAGE: %s file_name.m\n", argv[0]);
+		fprintf(stderr, "USAGE: %s file_name.m\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	input = fopen(argv[1], "r");
 	if (!input)
 	{
-		printf("Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	buffer = malloc(BUFFER_SIZE);
+	if (!buffer)
+	{
+		fprintf(stderr, "Error: memory not allocated!");
+		exit(EXIT_FAILURE);
+	}
+	line = NULL;
+
+
+	line_number = 0;
 	while (fgets(buffer, BUFFER_SIZE, input))
 	{
-		parseline(buffer);
+		line_number++;
+		line = parseline(buffer);
+		if (line == NULL || line[0] == '#')
+			continue;
+		call_func = get_op_func(line);
+		if (call_func == NULL)
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, line);
+			fclose(input);
+			free(line);
+			exit(EXIT_FAILURE);
+		}
+		call_func(NULL, line_number);
 	}
 	free(buffer);
 	fclose(input);
