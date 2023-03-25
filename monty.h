@@ -35,6 +35,7 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 typedef void (*instruction_op)(stack_t **stack, unsigned int line_number);
+void readfile(stack_t **stack, char *argv);
 char *parseline(char *line);
 stack_t *add_dnodeint_end(stack_t **, const int);
 void op_push(stack_t **, unsigned int);
