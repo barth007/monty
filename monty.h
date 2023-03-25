@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #define BUFFER_SIZE 1024
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -19,6 +20,7 @@ typedef struct stack_s
         struct stack_s *prev;
         struct stack_s *next;
 } stack_t;
+extern stack_t *top;
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -34,7 +36,9 @@ typedef struct instruction_s
 } instruction_t;
 typedef void (*instruction_op)(stack_t **stack, unsigned int line_number);
 char *parseline(char *line);
+stack_t *add_dnodeint_end(stack_t **, const int);
 void op_push(stack_t **, unsigned int);
 void op_pall(stack_t **, unsigned int);
 instruction_op get_op_func(char *);
+int _isdigit(char *);
 #endif

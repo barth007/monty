@@ -31,6 +31,7 @@ instruction_op  get_op_func(char *token)
 char *parseline(char *line)
 {
 	char *token;
+	char delim[] = "\n ";
 
 	token = NULL;
 	if (!line)
@@ -38,7 +39,7 @@ char *parseline(char *line)
 		printf("Error: line is empty");
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(line, "\n");
+	token = strtok(line, delim);
 	if (!token)
 	{
 		printf("Error: token is empty");

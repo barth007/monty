@@ -12,7 +12,9 @@ int main(int argc, char *argv[])
 	char *line;
 	unsigned int line_number;
 	instruction_op call_func;
+	stack_t *stack;
 
+	stack = NULL;
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: %s file_name.m\n", argv[0]);
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
 			free(line);
 			exit(EXIT_FAILURE);
 		}
-		call_func(NULL, line_number);
+		call_func(&stack, line_number);
 	}
 	free(buffer);
 	fclose(input);
